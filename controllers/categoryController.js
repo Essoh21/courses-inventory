@@ -18,7 +18,9 @@ exports.getIndex = asyncHandler(async (req, res, next) => {
 // CRUD
 // get form to create category
 exports.getNewCategory = (req, res, next) => {
-  res.send("Not yet categoryForm");
+  res.render("categoryForm", {
+    title: "New Category Form",
+  });
 };
 
 // save created category

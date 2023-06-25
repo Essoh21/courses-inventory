@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  header Courses Inventory 
+  main.mcontainer
+    form(action="" method='post') 
+        h1= title 
+        .form-container 
+            .name 
+                label(for="name") Name:
+                input(type="text" id='name' name='name' required='true' placeholder='category name ' value=(category === undefined?'':category.name)) 
+            .category-description 
+                label(for="category-description") Description: 
+                textarea(name="description", id='category-description' , required='true', placeholder='description' value=(category === undefined?'':category.description)) 
+        button(type=submit) Submit     
