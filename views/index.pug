@@ -1,5 +1,20 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  header Courses Inventory 
+  main.mcontainer 
+    section(class='categories container') 
+      h1= title
+      .categories 
+        each category in categories 
+          a(href=`${category.url + '/courses'}`)  
+            .category 
+              h2 #{category.name}
+              .description #{category.description}
+    .links 
+      a(href="http://") Create New Category 
+      a(href="http://") Intructors    
+      
+    
+   
+  

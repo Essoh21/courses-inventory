@@ -4,7 +4,6 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
-const indexRouter = require("./routes/index");
 const appRouter = require("./routes/allRoutes");
 const { error } = require("console");
 const { default: mongoose } = require("mongoose");

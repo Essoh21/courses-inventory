@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  main.mcontainer
+    section(class='courses container')
+      h1= title
+      .courses
+        each course in courses
+          a(href=`${course.url + '/details'}`)
+            .course
+              h2 #{course.title}
+              .description #{course.description}
+    .links
+      a(href="http://") Create New Course
+      a(href="http://") Instructor
