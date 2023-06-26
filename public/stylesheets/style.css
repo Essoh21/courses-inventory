@@ -112,6 +112,18 @@ label {
   margin-right: 0.5rem;
 }
 
+.errors li {
+  color: #660404;
+  font-size: 1.2rem;
+}
+.deletion {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: large;
+}
+
 footer {
   box-sizing: border-box;
   width: 100%;

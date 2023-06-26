@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  header Courses Inventory 
+  main.mcontainer
+    h1= title  
+    if categoryAllCourses.length > 0
+        p #[strong you should delete the following courses before attempting to delete this category]
+        ul 
+            each course in categoryAllCourses 
+                dl.course
+                    dt  
+                        a(href=`${course.url + '/details'}`) #{course.title}
+                    dd.description #{course.description}
+    else 
+        .deletion 
+            p= categoryAllCourses
+            p Do you really want to delete this category?
+            form(action="" method='POST')
+                input(type="hidden" name='categoryId' value= category.categoryid) 
+                button(type='submit') Delete 

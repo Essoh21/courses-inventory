@@ -70,7 +70,7 @@ router.post(
 
 // get and display a course
 router.get(
-  "/category/:categoryid/course/:courseid/details",
+  "/category/course/:courseid/details",
   CourseController.getCategoryCourseDetails
 );
 
@@ -82,7 +82,7 @@ router.get(
 
 //POST update course
 router.post(
-  "/category/:categoryid/course/:courseid/update",
+  "/category/course/:courseid/update",
   CourseController.postUpdateCategoryCourse
 );
 

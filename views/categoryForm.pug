@@ -3,7 +3,7 @@ extends layout
 block content
   header Courses Inventory 
   main.mcontainer
-    form(action="" method='post') 
+    form(action="" method='POST') 
         h1= title 
         .form-container 
             .name 
@@ -11,5 +11,10 @@ block content
                 input(type="text" id='name' name='name' required='true' placeholder='category name ' value=(category === undefined?'':category.name)) 
             .category-description 
                 label(for="category-description") Description: 
-                textarea(name="description", id='category-description' , required='true', placeholder='description' value=(category === undefined?'':category.description)) 
-        button(type=submit) Submit     
+                textarea(name="description" rows= '4'  id='category-description'  required='true'  value=(category?category.description:''))!= category?category.description:''
+        if errors 
+            ul.errors 
+                each error in errors  
+                    li!= error.msg 
+        button(type=submit) Submit   
+      
