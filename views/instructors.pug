@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  header 
+    a(href="/") Courses Inventory
+  main.mcontainer 
+    section(class='categories container') 
+      h1= title 
+      if instructors.length <1
+            p No instructor yet 
+      else  
+        .instructors  
+         each instructor in instructors 
+             a(href=`${instructor.url + '/details'}`)  
+                .instructor 
+                 h2 #{instructor.name}
+                .qualification #{instructor.qualification}
+    .links 
+      a(href="/course/instructor/create") Add New Instructor     
+      
+    
+   
+  

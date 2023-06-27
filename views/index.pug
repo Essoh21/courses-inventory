@@ -1,7 +1,8 @@
 extends layout
 
 block content
-  header Courses Inventory 
+  header 
+    a(href="/") Courses Inventory  
   main.mcontainer 
     section(class='categories container') 
       h1= title
@@ -13,7 +14,7 @@ block content
               .description #{category.description}
     .links 
       a(href="/category/create") Create New Category 
-      a(href="http://") Intructors    
+      a(href="/instructors") Intructors    
       
     
    

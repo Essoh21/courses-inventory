@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  header 
+    a(href="/") Courses Inventory
+  main.del-instructor-main
+    h1= title  
+    if instructorCourses.length > 0
+        p #[strong you should delete the following courses before attempting to delete this instructor]
+        ul.instructor-courses-del 
+            each course in instructorCourses 
+                dl.course
+                    dt  
+                        a(href=`${course.url + '/details'}`) #{course.title}
+                    dd.description #{course.description}
+    else 
+        .deletion 
+            p= instructor.name 
+            p Do you really want to delete this Instructor?
+            form(action="" method='POST')
+                input(type="hidden" name='categoryId' value= instructor.instructorid) 
+                button(type='submit') Delete 

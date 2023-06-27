@@ -103,37 +103,43 @@ router.post(
 router.get("/instructors", InstructorController.getInstructors);
 
 // get create Instructor
-router.get("/instructor/create", InstructorController.getCreateNewInstructor);
+router.get(
+  "/course/instructor/create",
+  InstructorController.getCreateNewInstructor
+);
 
 // POST new instructor
-router.post("/instructor/create", InstructorController.postCreateNewInstructor);
+router.post(
+  "/course/instructor/create",
+  InstructorController.postCreateNewInstructor
+);
 
 // display instructor details
 router.get(
-  "/instructor/:instructorid/details",
+  "/course/instructor/:instructorid/details",
   InstructorController.getInstructorDetails
 );
 
 // GET update instructor
 router.get(
-  "/instructor/:instructorid/update",
+  "/course/instructor/:instructorid/update",
   InstructorController.getUpdateInstructor
 );
 
 //POST update instructor
 router.post(
-  "/instructor/:instructorid/update",
+  "/course/instructor/:instructorid/update",
   InstructorController.postUpdateInstructor
 );
 
 //GET delete Instructor
 router.get(
-  "/instructor/:instructorid/delete",
+  "/course/instructor/:instructorid/delete",
   InstructorController.getDeleteInstructor
 );
 // POST delete instructor
 router.post(
-  "/instructor/:instructorid/delete",
+  "/course/instructor/:instructorid/delete",
   InstructorController.postDeleteInstructor
 );
 

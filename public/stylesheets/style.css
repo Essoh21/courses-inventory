@@ -14,6 +14,10 @@ header {
   border-bottom: 1px solid #c0bebe;
   font-family: "Bad Script", cursive;
 }
+header a {
+  text-decoration: none;
+  color: black;
+}
 .mcontainer {
   width: calc(100% - 4rem);
   padding: 0 1rem;
@@ -39,6 +43,12 @@ header {
   max-width: 70%;
   margin: 0 auto;
 }
+.inscourses {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
 
 .category,
 .course {
@@ -49,7 +59,8 @@ header {
   box-shadow: #c0bebe;
   cursor: pointer;
 }
-.category:hover {
+.category:hover,
+.inscourses a:hover {
   transform: scale(1.2);
 }
 
@@ -106,7 +117,7 @@ button {
 }
 label {
   display: inline-block;
-  width: 6rem;
+  width: 8rem;
   text-align: right;
   font-size: large;
   margin-right: 0.5rem;
@@ -124,12 +135,40 @@ label {
   font-size: large;
 }
 
+.first-name,
+.last-name,
+.qualifications {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+input,
+textarea {
+  padding: 0.3rem 0.5rem;
+  font-size: large;
+}
+
+.instructor-courses-del {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.del-instructor-main {
+  width: 100%;
+  min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 footer {
   box-sizing: border-box;
   width: 100%;
   min-height: 15rem;
   padding-top: 0.5rem;
-  background-color: #c0bebe;
+  background-color: #e2dfdf63;
   text-align: center;
 }
 

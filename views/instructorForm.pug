@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  header 
+    a(href="/") Courses Inventory
+  main.mcontainer 
+    h1= title 
+    form(action="" method="POST")  
+        .first-name 
+            label(for="first-name") Name  :
+            input(type="text" placeholder ="Your name " required='true' name ="firstName" id="first-name" value=(instructor?instructor.first_name:""))
+        .last-name 
+            label(for="last-name")  Family Name : 
+            input(type="text" placeholder=" Your family name" required='true' name ="lastName" id="last-name" value=(instructor?instructor.last_name:""))
+        .qualifications 
+            label(for="instructor-qualifications") Qualifications :
+            textarea(rows='4' placeholder='enter your qualifications'  id="instructor-qualifications" name = "qualifications" value=(instructor?instructor.qualifications:""))!=  instructor?instructor.qualifications:''
+        if errors 
+            ul.errors 
+                each error  in errors 
+                    li!= error.msg 
+        button(type="submit") Submit  
+    
+   
+  
