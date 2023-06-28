@@ -10,7 +10,7 @@ const CourseSchema = new Schema({
     ref: "Instructor",
     required: true,
   },
-  img: { type: Schema.Types.ObjectId, ref: "Image", required: true },
+  img: { type: Schema.Types.ObjectId, ref: "Image" },
 });
 
 //virtual for Course url

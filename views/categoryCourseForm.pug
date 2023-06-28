@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  header 
+    a(href="/") Courses Inventory 
+  main.mcontainer
+    form(action="" method='POST') 
+        h1= title 
+        .form-container 
+            .course-title   
+                label(for="courseTitle") Title :
+                input(type="text" id='courseTitle' name='title' required='true' placeholder='course title ' value=(course === undefined?'':course.title)) 
+            .course-description 
+                label(for="courseDescription") Description:
+                textarea(rows="4" id='courseDescription' name='description' required='true' placeholder='describe course ...' value=(course === undefined?'':course.description))!=  course?course.description:''
+            .course-price  
+                label(for="coursePrice") Price:
+                input(type="number" id='coursePrice' name='price' required='true' placeholder='course price' value=(course === undefined?'':course.price)) 
+            .course-category 
+                label(for="courseCategory") Categories  : 
+                select(type="select" name="category"  id="courseCategory"  required='true' )
+                    option(value="") --select the category -- 
+                    -categories.sort(function(a,b){let first = a.name.toUpperCase(); let second = b.name.toUpperCase(); return  first>second?-1:first<second?1:0  })
+                    each category in categories 
+                        if course 
+                            option(value=category._id,selected = (category._id.toString() === course.category._id.toString()?"selected":false)) #{category.name}
+                        else 
+                           
+                            option(value=category.id)  #{category.name} 
+            .course-instructor 
+                label(for="courseInstructor") Instructors : 
+                select(name="instructor", id="courseInstructor", required='true') 
+                    -instructors.sort()
+                    option(value="") --select the instructor -- 
+                    each instructor in instructors 
+                        if course 
+                            option(value=instructor._id,selected = (instructor._id.toString()=== course.instructor._id.toString()?'selected':false))  #{instructor.name} 
+                        else 
+                            option(value=instructor._id) #{instructor.name} 
+        if errors 
+            ul.errors 
+                each error in errors  
+                    li!= error.msg 
+        button(type=submit) Submit   
+      

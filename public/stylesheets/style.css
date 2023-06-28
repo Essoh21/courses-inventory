@@ -144,7 +144,8 @@ label {
   max-width: 100%;
 }
 input,
-textarea {
+textarea,
+select {
   padding: 0.3rem 0.5rem;
   font-size: large;
 }

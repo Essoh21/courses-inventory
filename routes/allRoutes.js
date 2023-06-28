@@ -50,12 +50,6 @@ module.exports = router;
 
 // Course Routes
 
-// get and display all course in a category
-router.get(
-  "/category/:categoryid/courses",
-  CourseController.getCategoryCourses
-);
-
 // get create course in a category
 router.get(
   "/category/:categoryid/course/create",
