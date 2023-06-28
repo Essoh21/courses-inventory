@@ -70,7 +70,7 @@ router.get(
 
 // GET update course
 router.get(
-  "/category/:categoryid/course/:courseid/update",
+  "/category/course/:courseid/update",
   CourseController.getUpdateCategoryCourse
 );
 
@@ -82,12 +82,12 @@ router.post(
 
 //GET delete Course
 router.get(
-  "/category/:categoryid/course/:courseid/delete",
+  "/category/course/:courseid/delete",
   CourseController.getDeleteCategoryCourse
 );
 // POST delete course
 router.post(
-  "/category/:categoryid/course/:courseid/delete",
+  "/category/course/:courseid/delete",
   CourseController.postDeleteCategoryCourse
 );
 

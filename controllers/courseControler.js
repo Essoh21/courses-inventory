@@ -77,27 +77,92 @@ exports.postCreateNewCategoryCourse = [
   }),
 ];
 
-// get category coures details
+// get category course details
 exports.getCategoryCourseDetails = asyncHandler(async (req, res, next) => {
-  res.send("details on category course");
+  const courseId = req.params.courseid;
+  const course = await Course.findById(courseId)
+    .populate("category")
+    .populate("instructor")
+    .exec();
+  if (course === null) {
+    const error = new Error("course not found");
+    error.status = 404;
+    return next(error);
+  }
+  //if the course is found then:
+  res.render("courseDetails", { course: course });
 });
 
 //  get update category course
 exports.getUpdateCategoryCourse = asyncHandler(async (req, res, next) => {
-  res.send("categoryCourseUpdate get not yet");
+  const courseId = req.params.courseid;
+  const [course, categories, instructors] = await Promise.all([
+    Course.findById(courseId).exec(),
+    Category.find({}).exec(),
+    Instructor.find({}).exec(),
+  ]);
+  res.render("categoryCourseForm", {
+    title: "Form to update the course",
+    categories: categories,
+    instructors: instructors,
+    course: course,
+  });
 });
 
 // save category course update
-exports.postUpdateCategoryCourse = asyncHandler(async (req, res, next) => {
-  res.send("categoryCourseUpdate post not yet");
-});
+exports.postUpdateCategoryCourse = [
+  // use functions defined in creation section
+  createTextValAndSanitizationChain("title", "invalid title"),
+  createTextValAndSanitizationChain("description", "invalid description"),
+  createNumValAndSanitizationChain("price", "invalid price"),
+  asyncHandler(async (req, res, next) => {
+    const errorsFromValidation = validationResult(req);
+    const data = matchedData(req);
+    //get all categories and instructors
+    const [instructors, categories] = await Promise.all([
+      Instructor.find({}).exec(),
+      Category.find({}).exec(),
+    ]);
+    // create the course
+    const course = new Course({
+      title: data.title,
+      description: req.body.description,
+      category: req.body.category,
+      price: req.body.price,
+      instructor: req.body.instructor,
+      _id: req.params.courseid, //use the old id
+    });
+    if (!errorsFromValidation.isEmpty()) {
+      res.render("categoryCourseForm", {
+        title: "fix errors below  and submit again",
+        course: course,
+        errors: errorsFromValidation.array(),
+        instructors: instructors,
+        categories: categories,
+      });
+    }
+    // if data is safe
+    await Course.findByIdAndUpdate(req.params.courseid, course);
+    res.redirect(course.url + "/details");
+  }),
+];
 
 // get   a given category course to delete
 exports.getDeleteCategoryCourse = asyncHandler(async (req, res, next) => {
-  res.send("category course delete not yet");
+  const courseId = req.params.courseid;
+  const course = await Course.findById(courseId)
+    .populate("category")
+    .populate("instructor")
+    .exec();
+  res.render("courseDelete", {
+    title: "Deleting course",
+    course: course,
+  });
 });
 
 //post a given categroy course to delete
 exports.postDeleteCategoryCourse = asyncHandler(async (req, res, next) => {
-  res.send("categoryCourseDelete post not yet");
+  const courseId = req.params.courseid;
+  await Course.findByIdAndRemove(courseId).exec();
+  res.redirect("/");
 });

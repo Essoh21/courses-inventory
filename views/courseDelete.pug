@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  header 
+    a(href="/") Courses Inventory
+  main.del-instructor-main
+    h1= title  
+    .deletion 
+        p= course.title 
+        p Do you really want to delete this course?
+        form(action="" method='POST')
+            input(type="hidden" name='courseId' value= course._id) 
+            button(type='submit') Delete 
