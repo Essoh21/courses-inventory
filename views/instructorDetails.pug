@@ -7,6 +7,8 @@ block content
     section(class='courses container')
       h1= title
       p= instructor.name +','+' '+ instructor.qualifications 
+      if instructor.pictureSrc 
+        img(src='/images/' + instructor.pictureSrc , alt=instructor.name)
       h2 Courses 
       .inscourses
         each course in courses

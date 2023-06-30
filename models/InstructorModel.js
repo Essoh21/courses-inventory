@@ -5,7 +5,7 @@ const InstructorSchema = new Schema({
   first_name: { type: String, required: true },
   last_name: { type: String, required: true },
   qualifications: String,
-  picture: { type: Schema.Types.ObjectId, ref: "Image" },
+  pictureSrc: String,
 });
 
 // virtuals

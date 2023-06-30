@@ -15,8 +15,10 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
 //connetion to mongDb
-const mongodbURI =
+const devMongodbURI =
   "mongodb+srv://essohalou:dbConnectionC@node-blog.ccomzyl.mongodb.net/?retryWrites=true&w=majority";
+
+const mongodbURI = process.env.MONGODB_URI || devMongodbURI;
 main().catch((error) => console.log(error));
 async function main() {
   await mongoose.connect(mongodbURI);

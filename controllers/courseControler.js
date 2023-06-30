@@ -163,6 +163,20 @@ exports.getDeleteCategoryCourse = asyncHandler(async (req, res, next) => {
 //post a given categroy course to delete
 exports.postDeleteCategoryCourse = asyncHandler(async (req, res, next) => {
   const courseId = req.params.courseid;
-  await Course.findByIdAndRemove(courseId).exec();
-  res.redirect("/");
+  const password = req.body.password;
+  const passwordError = "invavlid password";
+  if (password === "addPass1") {
+    await Course.findByIdAndRemove(courseId).exec();
+    res.redirect("/");
+  } else {
+    const course = await Course.findById(courseId)
+      .populate("category")
+      .populate("instructor")
+      .exec();
+    res.render("courseDelete", {
+      title: "Deleting course",
+      course: course,
+      error: passwordError,
+    });
+  }
 });

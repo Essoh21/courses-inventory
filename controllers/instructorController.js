@@ -1,11 +1,28 @@
+const path = require("path");
 // import  required modules from models
 const Course = require("../models/CourseModel");
 const Instructor = require("../models/InstructorModel");
+//import multer to help getting file and form data
+const multer = require("multer");
+//configure where files are going to be stored
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./public/images/");
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9); // create unique number
+    const fileExtension = file.originalname.split(".").pop(); // get the file extension
+    cb(null, file.fieldname + "-" + uniqueSuffix + "." + fileExtension);
+  },
+});
+// create the middleware function that is called to store files
+const upload = multer({ storage: storage });
 
 // import express-asyn-handler to handle error propagation when loading async files
 const asyncHandler = require("express-async-handler");
 // import express-validator middlware to validate and sanitize data
 const { body, validationResult, matchedData } = require("express-validator");
+const { response } = require("express");
 
 // get all instructors
 
@@ -29,6 +46,7 @@ const createTextValAndSanitizationChain = (property, errorText) => {
   return body(`${property}`, `${errorText}`).trim().notEmpty().escape();
 };
 exports.postCreateNewInstructor = [
+  upload.single("picture"),
   createTextValAndSanitizationChain(
     "firstName",
     "empty first Name not allowed"
@@ -42,6 +60,8 @@ exports.postCreateNewInstructor = [
     "empty qualification not allowed"
   ),
   asyncHandler(async (req, res, next) => {
+    const profilePicture =
+      req.file === undefined ? undefined : path.basename(req.file.path);
     const formData = matchedData(req);
     const errorsFromValidation = validationResult(req);
     // prepare form data for save
@@ -49,6 +69,7 @@ exports.postCreateNewInstructor = [
       first_name: formData.firstName,
       last_name: formData.lastName,
       qualifications: formData.qualifications,
+      pictureSrc: profilePicture,
     });
     if (!errorsFromValidation.isEmpty()) {
       res.render("instructorForm", {
@@ -147,6 +168,7 @@ exports.getDeleteInstructor = asyncHandler(async (req, res, next) => {
 //post instructor delete
 exports.postDeleteInstructor = asyncHandler(async (req, res, next) => {
   const instructorId = req.params.instructorid;
+  const password = req.body.password;
   const [instructor, instructorCourses] = await Promise.all([
     Instructor.findById(instructorId).exec(),
     Course.find({ instructor: instructorId }).exec(),
@@ -158,8 +180,17 @@ exports.postDeleteInstructor = asyncHandler(async (req, res, next) => {
       instructorCourses: instructorCourses,
     });
     return;
-  } else {
+  } else if (password === "addPass1") {
     await Instructor.findByIdAndRemove(instructorId);
     res.redirect("/instructors");
+  } else {
+    const error = "invalid password";
+    res.render("instructorDelete", {
+      title: "Deleting Instructor Form ",
+      instructor: instructor,
+      instructorCourses: instructorCourses,
+      error: error,
+    });
+    return;
   }
 });

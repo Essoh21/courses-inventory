@@ -137,17 +137,28 @@ label {
 
 .first-name,
 .last-name,
-.qualifications {
+.qualifications,
+.picture,
+.password {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   max-width: 100%;
 }
+
 input,
 textarea,
 select {
   padding: 0.3rem 0.5rem;
   font-size: large;
+}
+img {
+  max-width: 20rem;
+  max-height: 20rem;
+}
+
+.error {
+  color: #660404;
 }
 
 .instructor-courses-del {

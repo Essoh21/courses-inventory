@@ -18,5 +18,11 @@ block content
             p= instructor.name 
             p Do you really want to delete this Instructor?
             form(action="" method='POST')
+                .password 
+                    label(for="password") Admin Password :
+                    input(type="password" name="password" id="password" placeholder="enter the admin password" required) 
                 input(type="hidden" name='categoryId' value= instructor.instructorid) 
                 button(type='submit') Delete 
+    if error
+        ul 
+            li= error 

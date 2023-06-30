@@ -9,5 +9,11 @@ block content
         p= course.title 
         p Do you really want to delete this course?
         form(action="" method='POST')
-            input(type="hidden" name='courseId' value= course._id) 
-            button(type='submit') Delete 
+          .password 
+            label(for="add-pass") Admin Password 
+            input(type="password", id="add-pass", name="password", placeholder="enter admin password" required)
+          input(type="hidden" name='courseId' value= course._id) 
+          button(type='submit') Delete 
+        if error
+           ul.error 
+              li= error 
