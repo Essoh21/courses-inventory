@@ -164,7 +164,7 @@ exports.getDeleteCategoryCourse = asyncHandler(async (req, res, next) => {
 exports.postDeleteCategoryCourse = asyncHandler(async (req, res, next) => {
   const courseId = req.params.courseid;
   const password = req.body.password;
-  const passwordError = "invavlid password";
+  const passwordError = "invalid password";
   if (password === "addPass1") {
     await Course.findByIdAndRemove(courseId).exec();
     res.redirect("/");
