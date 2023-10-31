@@ -1,2 +1,2 @@
 # courses-inventory
-courses inventory mangement app
+courses inventory management app
